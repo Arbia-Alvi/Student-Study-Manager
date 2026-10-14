@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register - Student Study Manager</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+</head>
+
+
+<body class="bg-light">
+
+
+<div class="container">
+
+    <div
+        class="row justify-content-center align-items-center"
+        style="min-height: 100vh;"
+    >
+
+        <div class="col-md-5 col-lg-4">
+
+            <!-- Brand -->
+
+            <div class="text-center mb-4">
+
+                <div
+                    class="bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                    style="width: 70px; height: 70px;"
+                >
+
+                    <i class="bi bi-mortarboard-fill fs-2"></i>
+
+                </div>
+
+                <h2 class="fw-bold mt-3">
+                    Student Study Manager
+                </h2>
+
+                <p class="text-muted">
+                    Start organizing your studies today.
+                </p>
+
+            </div>
+
+
+            <!-- Register Card -->
+
+            <div class="card border-0 shadow">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <h3 class="fw-bold text-center mb-1">
+                        Create Account
+                    </h3>
+
+                    <p class="text-muted text-center mb-4">
+                        Create your student account to get started.
+                    </p>
+
+
+                    <!-- Flash Messages -->
+
+                    {% with messages = get_flashed_messages() %}
+
+                        {% if messages %}
+
+                            {% for message in messages %}
+
+                                <div
+                                    class="alert alert-danger alert-dismissible fade show"
+                                    role="alert"
+                                >
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    {{ message }}
+
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert"
+                                    ></button>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endwith %}
+
+
+                    <form method="POST">
+
+                        <!-- Name -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-person"></i>
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control form-control-lg"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-envelope"></i>
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control form-control-lg"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Password -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-lock"></i>
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control form-control-lg"
+                                placeholder="Create a password"
+                                minlength="6"
+                                required
+                            >
+
+                            <div class="form-text">
+                                Password must contain at least 6 characters.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Register Button -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-dark btn-lg w-100"
+                        >
+
+                            <i class="bi bi-person-plus"></i>
+                            Create Account
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- Login -->
+
+                    <div class="text-center mt-4">
+
+                        <span class="text-muted">
+                            Already have an account?
+                        </span>
+
+                        <a
+                            href="{{ url_for('auth.login') }}"
+                            class="fw-semibold text-decoration-none"
+                        >
+                            Login
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="text-center text-muted small mt-3">
+
+                Student Study Manager
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
+</body>
+
+</html>

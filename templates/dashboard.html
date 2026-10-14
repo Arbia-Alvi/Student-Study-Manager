@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard - Student Study Manager
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="fw-bold mb-1">
+            Dashboard
+        </h2>
+
+        <p class="text-muted mb-0">
+            Welcome back, {{ user.name }}!
+        </p>
+    </div>
+
+    <a href="{{ url_for('tasks.add_task') }}" class="btn btn-dark">
+        <i class="bi bi-plus-circle"></i>
+        Add Task
+    </a>
+
+</div>
+
+
+<!-- Statistics Cards -->
+
+<div class="row g-4">
+
+    <!-- Total Subjects -->
+
+    <div class="col-md-6 col-lg-3">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Total Subjects
+                        </p>
+
+                        <h2 class="fw-bold mb-0">
+                            {{ total_subjects }}
+                        </h2>
+                    </div>
+
+                    <div class="fs-1 text-primary">
+                        <i class="bi bi-journal-bookmark"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Total Tasks -->
+
+    <div class="col-md-6 col-lg-3">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Total Tasks
+                        </p>
+
+                        <h2 class="fw-bold mb-0">
+                            {{ total_tasks }}
+                        </h2>
+                    </div>
+
+                    <div class="fs-1 text-info">
+                        <i class="bi bi-list-check"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Completed -->
+
+    <div class="col-md-6 col-lg-3">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Completed
+                        </p>
+
+                        <h2 class="fw-bold mb-0">
+                            {{ completed_tasks }}
+                        </h2>
+                    </div>
+
+                    <div class="fs-1 text-success">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Pending -->
+
+    <div class="col-md-6 col-lg-3">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Pending
+                        </p>
+
+                        <h2 class="fw-bold mb-0">
+                            {{ pending_tasks }}
+                        </h2>
+                    </div>
+
+                    <div class="fs-1 text-warning">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Overdue, Due Today, Upcoming Tasks -->
+<div class="row g-4 mt-1">
+
+    <!-- Overdue Tasks -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Overdue Tasks</p>
+                        <h2 class="fw-bold text-danger mb-0">
+                            {{ overdue_tasks }}
+                        </h2>
+                    </div>
+                    <div class="fs-1 text-danger">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Due Today -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Due Today</p>
+                        <h2 class="fw-bold text-warning mb-0">
+                            {{ due_today_tasks }}
+                        </h2>
+                    </div>
+                    <div class="fs-1 text-warning">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Tasks -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Upcoming Tasks</p>
+                        <h2 class="fw-bold text-primary mb-0">
+                            {{ upcoming_tasks }}
+                        </h2>
+                    </div>
+                    <div class="fs-1 text-primary">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- Study Progress -->
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-graph-up"></i>
+                Study Progress
+            </h5>
+
+            <span class="fw-bold">
+                {{ progress }}%
+            </span>
+
+        </div>
+
+        <div class="progress mt-3" style="height: 30px;">
+
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ progress }}%;"
+                aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                {{ progress }}%
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Tasks -->
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-clock-history"></i>
+                Recent Tasks
+            </h5>
+
+            <a href="{{ url_for('tasks.task_list') }}" class="btn btn-sm btn-outline-dark">
+                View All
+            </a>
+
+        </div>
+
+
+        {% if recent_tasks %}
+
+        <div class="table-responsive mt-3">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Task</th>
+
+                        <th>Priority</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for task in recent_tasks %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                {{ task.title }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if task.priority == "High" %}
+
+                            <span class="badge bg-danger">
+                                High
+                            </span>
+
+                            {% elif task.priority == "Medium" %}
+
+                            <span class="badge bg-warning text-dark">
+                                Medium
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-success">
+                                Low
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if task.completed %}
+
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle"></i>
+                                Completed
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-warning text-dark">
+                                <i class="bi bi-clock"></i>
+                                Pending
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-4">
+
+            <i class="bi bi-inbox fs-1 text-muted"></i>
+
+            <p class="text-muted mt-2 mb-0">
+                No tasks added yet.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

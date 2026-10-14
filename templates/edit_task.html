@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Task - Student Study Manager
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8 col-lg-7">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body p-4 p-md-5">
+
+                <!-- Heading -->
+
+                <div class="text-center mb-4">
+
+                    <div
+                        class="bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                        style="width: 65px; height: 65px;"
+                    >
+                        <i class="bi bi-pencil-square fs-3"></i>
+                    </div>
+
+                    <h2 class="fw-bold mt-3">
+                        Edit Task
+                    </h2>
+
+                    <p class="text-muted">
+                        Update your task details below.
+                    </p>
+
+                </div>
+
+
+                <form method="POST">
+
+                    <!-- Task Title -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-pencil"></i>
+                            Task Title
+                        </label>
+
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control form-control-lg"
+                            value="{{ task.title }}"
+                            maxlength="200"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-card-text"></i>
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="4"
+                            maxlength="500"
+                            placeholder="Enter task description"
+                        >{{ task.description or "" }}</textarea>
+
+                    </div>
+
+
+                    <!-- Subject -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-book"></i>
+                            Subject
+                        </label>
+
+                        <select
+                            name="subject_id"
+                            class="form-select form-select-lg"
+                            required
+                        >
+
+                            {% for subject in subjects %}
+
+                                <option
+                                    value="{{ subject.id }}"
+                                    {% if subject.id == task.subject_id %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ subject.name }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Priority + Due Date -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-flag"></i>
+                                Priority
+                            </label>
+
+                            <select
+                                name="priority"
+                                class="form-select form-select-lg"
+                                required
+                            >
+
+                                <option
+                                    value="Low"
+                                    {% if task.priority == "Low" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Low
+                                </option>
+
+                                <option
+                                    value="Medium"
+                                    {% if task.priority == "Medium" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Medium
+                                </option>
+
+                                <option
+                                    value="High"
+                                    {% if task.priority == "High" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    High
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-calendar-event"></i>
+                                Due Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="due_date"
+                                class="form-control form-control-lg"
+                                value="{% if task.due_date %}{{ task.due_date.strftime('%Y-%m-%d') }}{% endif %}"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+
+                    <div class="d-flex gap-2">
+
+                        <a
+                            href="{{ url_for('tasks.task_list') }}"
+                            class="btn btn-outline-secondary w-50"
+                        >
+                            <i class="bi bi-arrow-left"></i>
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-dark w-50"
+                        >
+                            <i class="bi bi-check-circle"></i>
+                            Update Task
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
